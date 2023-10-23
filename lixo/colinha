@@ -1,0 +1,2 @@
+g++ test.cpp -o testout.cpp
+./testout.cpp < testinput.cpp > saida.cpp
