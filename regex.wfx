@@ -53,3 +53,4 @@
 \".*\" STRING
 \{[^\}]*\} COMENTARIO
 //[^\n]*\n COMENTARIO
+\0 EOF

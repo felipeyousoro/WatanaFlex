@@ -10,6 +10,8 @@ def get_transition_from_slash(char: str) -> str:
         return '\n'
     elif char == 'r':
         return '\r'
+    elif char == '0':
+        return '\0'
     raise Exception(f'Invalid slash character: {char}')
 
 
