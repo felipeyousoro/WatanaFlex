@@ -1,4 +1,6 @@
-[ \t\n\r] VAZIO
+[ ] ESPACO
+[\n\r] QUEBRA_DE_LINHA
+[\t] TABULACAO
 [aA][tT][eE] ATE
 [aA][lL][gG][oO][rR][iI][tT][mM][oO] ALGORITMO
 [cC][aA][rR][aA][cC][tT][eE][rR][eE] CARACTERE
@@ -9,6 +11,7 @@
 [dD][iI][vV] DIV
 [fF][aA][cC][aA] FACA
 [fF][aA][lL][sS][oO] FALSO
+[fF][iI][mM] FIM
 [fF][uU][nN][cC][aA][oO] FUNCAO
 [iI][nN][iI][cC][iI][oO] INICIO
 [iI][nN][tT][eE][iI][rR][oO] INTEIRO
