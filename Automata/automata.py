@@ -107,8 +107,6 @@ class Automata:
         #     print('Already deterministic')
         #     return self
 
-        new_automata: Automata = Automata()
-
         full_transition_table: list[list[list[int]]] = []
         full_tokens_table: list[str] = []
         full_finals_table: list[bool] = []
@@ -159,14 +157,17 @@ class Automata:
 
                     dict_states[composed_state_name] = total_states
                     total_states += 1
-                    print('Novo estado: ', composed_state_name, ' -> ', dict_states[composed_state_name], ' valor: ', ord(chr(j)))
+                    #print('Novo estado: ', composed_state_name, ' -> ', dict_states[composed_state_name], ' valor: ', ord(chr(j)))
 
                     # Adding the transition to the new automata
                     full_transition_table.append([[] for i in range(len(full_transition_table[0]))])
+                    full_tokens_table.append('ERROR')
                     full_finals_table.append(False)
 
                     for state in states:
                         if full_finals_table[state]:
+                            print(dict_states[composed_state_name])
+                            print(len(full_finals_table))
                             full_finals_table[dict_states[composed_state_name]] = True
                             full_tokens_table[dict_states[composed_state_name]] = full_tokens_table[state]
                             break
