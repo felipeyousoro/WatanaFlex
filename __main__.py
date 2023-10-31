@@ -28,12 +28,16 @@ if __name__ == '__main__':
     # print(tables[2])
 
     # build a .c file for the automata with C code
-    automaton = automaton.convert_nfa_to_nfa()
+    automaton = automaton.convert_nfa_to_dfa()
     tables = automaton.get_automata()
 
     file = open(os.path.join(sys.path[0], "automata.c"), "w")
 
-    file.write('int TRANSITION_TABLE[][256] = {\n')
+    file.write('/*\n/\tEste arquivo foi gerado pelo software Watanaflex,\n')
+    file.write('/\t\tescrito por Felipe Dias Abrahao (Felipe Yousoro)\n')
+    file.write('/\t\thttps://github.com/felipeyousoro/WatanaFlex/\n*/\n\n')
+
+    file.write('int TRANSITIONS_TABLE[][256] = {\n')
     for i in range(len(tables[0])):
         file.write('\t{')
         for j in range(len(tables[0][i])):
@@ -69,7 +73,7 @@ if __name__ == '__main__':
 
     file.write('};\n\n')
 
-    file.write('int STATE_TOKENS_TABLE[] = {\n')
+    file.write('int STATES_TOKENS_TABLE[] = {\n')
     for i in range(len(tables[3])):
         file.write('\t' + str(tables[3][i]))
         if i != len(tables[3]) - 1:

@@ -4,7 +4,7 @@ def build_transition_table(states) -> list[list[int]]:
     POSSIBLE_TRANSITIONS: int = 256
 
     for state in states:
-        transitions.append([-1 for _ in range(POSSIBLE_TRANSITIONS)])
+        transitions.append([0 for _ in range(POSSIBLE_TRANSITIONS)])
         for transition in state.transitions:
             transitions[state.name][ord(transition[0])] = transition[1].name
 
@@ -22,14 +22,14 @@ def build_tokens_table(states) -> [list[str], list[str]]:
     tokens: list[str] = []
     state_tokens: list[str] = []
 
-    tokens.append('ERRO')
+    tokens.append('ERROR')
 
     for state in states:
         if state.token not in tokens:
             if state.token is not None:
                 tokens.append(state.token)
         if state.token == None:
-            state_tokens.append('ERRO')
+            state_tokens.append('ERROR')
         else:
             state_tokens.append(state.token)
 

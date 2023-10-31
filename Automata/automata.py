@@ -9,7 +9,9 @@ class Automata:
     def __init__(self):
         self.states: list[st.State] = []
         self.states.append(st.State(0, False))
-        self.no_states: int = 1
+        self.states.append(st.State(1, False))
+
+        self.no_states: int = 2
         self.deterministic: bool = True
 
     def add_state(self, is_final: bool = False, token: str = None) -> st.State:
@@ -26,7 +28,7 @@ class Automata:
             self.states), tokens, state_tokens
 
     def add_expression(self, regex_groups: list, token: str) -> None:
-        current_state: int = self.states[0].name
+        current_state: int = self.states[1].name
 
         no_groups: int = len(regex_groups)
 
@@ -73,9 +75,9 @@ class Automata:
                 new_states[i - 1].extend_transitions(new_states[i])
 
         if regex_groups[0][1] == '*':
-            self.states[0].is_final = new_states[0].is_final
-            self.states[0].token = new_states[0].token
-            self.states[0].extend_transitions(new_states[0])
+            self.states[1].is_final = new_states[1].is_final
+            self.states[1].token = new_states[1].token
+            self.states[1].extend_transitions(new_states[1])
 
         self.check_automata_deterministic()
 
@@ -99,7 +101,7 @@ class Automata:
 
 
 
-    def convert_nfa_to_nfa(self):
+    def convert_nfa_to_dfa(self):
         # self.check_automata_deterministic()
         # if self.deterministic:
         #     print('Already deterministic')
@@ -147,7 +149,6 @@ class Automata:
                     # If not, then we need to create the composed state
                     composed_state_name: str = ''
                     # Just saving in the dictionary the composed state
-                    #print(i, j)
                     states = full_transition_table[i][j]
                     #print(states)
                     composed_state_name = str(states)
@@ -155,13 +156,13 @@ class Automata:
                         #print('contido: ', composed_state_name)
                         full_transition_table[i][j] = [dict_states[composed_state_name]]
                         continue
-                    else:
-                        dict_states[composed_state_name] = total_states
-                        total_states += 1
+
+                    dict_states[composed_state_name] = total_states
+                    total_states += 1
+                    print('Novo estado: ', composed_state_name, ' -> ', dict_states[composed_state_name], ' valor: ', ord(chr(j)))
 
                     # Adding the transition to the new automata
                     full_transition_table.append([[] for i in range(len(full_transition_table[0]))])
-                    full_tokens_table.append('ERRO')
                     full_finals_table.append(False)
 
                     for state in states:
@@ -177,6 +178,7 @@ class Automata:
                         for k in range(0, len(full_transition_table[state])):
                             for state_to in full_transition_table[state][k]:
                                 full_transition_table[dict_states[composed_state_name]][k].append(state_to)
+
             i += 1
 
         # print('\t', end='')
@@ -206,9 +208,9 @@ class Automata:
 
         total = len(transitions)
 
-        new_automata.states[0].token = tokens[0]
-        new_automata.states[0].is_final = finals[0]
-        for i in range(1, total):
+        new_automata.states[1].token = tokens[1]
+        new_automata.states[1].is_final = finals[1]
+        for i in range(2, total):
             new_automata.add_state(finals[i], tokens[i])
 
         for i in range(0, total):
