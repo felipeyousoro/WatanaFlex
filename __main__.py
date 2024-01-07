@@ -83,5 +83,3 @@ if __name__ == '__main__':
     file.write('};\n\n')
 
     file.close()
-
-    #print('The end')
